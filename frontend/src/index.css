@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* =======================================================
+    NexusRAG — Quantum Cosmic Palette
+    Primary  -> Neon Cyan
+    Accent   -> Electric Violet
+    Neutrals -> Deep Space Black
+    ======================================================= */
+
+  /* Colors - Dark Theme (default) */
+  --color-background: oklch(0.1 0.02 260);
+  --color-foreground: oklch(0.98 0.01 200);
+  --color-primary: oklch(0.78 0.16 195);
+  --color-primary-foreground: oklch(0.1 0.05 200);
+  --color-secondary: oklch(0.2 0.04 265);
+  --color-secondary-foreground: oklch(0.9 0.02 200);
+  --color-accent: oklch(0.68 0.22 310);
+  --color-accent-foreground: oklch(0.98 0.01 310);
+  --color-destructive: oklch(0.55 0.22 25);
+  --color-destructive-foreground: oklch(0.98 0 0);
+  --color-muted: oklch(0.18 0.03 260);
+  --color-muted-foreground: oklch(0.7 0.05 240);
+  --color-card: oklch(0.14 0.03 260 / 0.7);
+  --color-card-foreground: oklch(0.96 0.01 200);
+  --color-border: oklch(0.3 0.05 250 / 0.5);
+  --color-input: oklch(0.16 0.03 260);
+  --color-ring: oklch(0.78 0.16 195);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  /* Fonts */
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--color-background);
+  background-image: 
+    radial-gradient(circle at 0% 0%, oklch(0.7 0.2 310 / 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, oklch(0.78 0.16 195 / 0.1) 0%, transparent 40%),
+    linear-gradient(to bottom right, oklch(0.08 0.02 260), oklch(0.12 0.04 265));
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient Grainy Noise Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: oklch(1 1 1 / 0.03);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid oklch(1 1 1 / 0.1);
+  box-shadow: 0 8px 32px 0 oklch(0 0 0 / 0.4);
+}
+
+.glass-card {
+  background: oklch(1 1 1 / 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid oklch(1 1 1 / 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: oklch(1 1 1 / 0.08);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px oklch(0.78 0.16 195 / 0.2);
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(1 1 1 / 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; filter: blur(40px); }
+  50% { opacity: 0.8; filter: blur(60px); }
+}
+
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  z-index: -1;
+  animation: pulse-glow 8s infinite ease-in-out;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), oklch(0.65 0.2 220));
+  color: var(--color-primary-foreground);
+  box-shadow: 0 4px 15px oklch(0.78 0.16 195 / 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 20px oklch(0.78 0.16 195 / 0.4);
+}
+
+/* Light Theme Override */
+html[data-theme="light"] {
+  --color-background: oklch(0.98 0.01 200);
+  --color-foreground: oklch(0.15 0.03 260);
+  --color-primary: oklch(0.6 0.2 200);
+  --color-card: oklch(1 0 0 / 0.8);
+  --color-border: oklch(0.9 0.02 200);
+  --color-muted: oklch(0.94 0.01 200);
+}
+
+html[data-theme="light"] body {
+  background-image: 
+    radial-gradient(circle at 0% 0%, oklch(0.85 0.1 310 / 0.1) 0%, transparent 40%),
+    linear-gradient(to bottom right, oklch(0.98 0.01 200), oklch(0.95 0.02 210));
+}
+
+/* =============================================================================
+   KaTeX Display Math
+   ============================================================================= */
+.katex-display {
+  margin: 0.75rem 0 !important;
+  overflow-x: auto;
+}
+li .katex-display {
+  margin: 0.5rem 0 !important;
+}
+
+/* =============================================================================
+   Code Block — Reset prose defaults for react-syntax-highlighter
+   ============================================================================= */
+.prose pre {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+.prose pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* =============================================================================
+   Streaming Cursor — blinking block cursor at end of streaming text
+   ============================================================================= */
+@keyframes streaming-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.streaming-cursor::after {
+  content: "\25CC";
+  display: inline;
+  margin-left: 2px;
+  color: var(--color-primary);
+  animation: streaming-blink 1s step-end infinite;
+  font-size: 0.85em;
+}
+
+/* =============================================================================
+   ThinkingTextWindow — Gradient mask for streaming thinking text
+   Fades bottom edge so streaming text feels continuous, not cut off.
+   ============================================================================= */
+.streaming-thinking-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 60%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+/* =============================================================================
+   Bot Icon — Rotating Glow Ring
+   ============================================================================= */
+@keyframes icon-glow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-glow-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-primary) 0deg,
+    transparent 90deg,
+    transparent 270deg,
+    var(--color-primary) 360deg
+  );
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 2px)
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 2px),
+    #000 calc(100% - 2px)
+  );
+  animation: icon-glow-spin 2s linear infinite;
+}
