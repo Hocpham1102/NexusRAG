@@ -85,10 +85,12 @@ export function KnowledgeBasesPage() {
                 Quantum Intelligence
               </p>
               <h2 className="text-3xl md:text-5xl font-display leading-tight tracking-tight">
-                Deep Knowledge collections with <span className="text-primary">Agentic Reasoning</span>.
+                Deep Knowledge collections with{" "}
+                <span className="text-primary">Agentic Reasoning</span>.
               </h2>
               <p className="text-sm text-muted-foreground mt-4 leading-relaxed max-w-xl">
-                NexusRAG merges vector search, knowledge graphs, and cross-encoder reranking into a seamless pipeline.
+                RAG merges vector search, knowledge graphs, and cross-encoder
+                reranking into a seamless pipeline.
               </p>
             </div>
 
@@ -200,69 +202,92 @@ export function KnowledgeBasesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Main Dashboard Grid */}
             {/* Featured Card */}
-          {workspaces && workspaces.length > 0 && (
-            <div 
-              className="lg:col-span-2 rounded-3xl glass-panel p-8 min-h-[400px] flex flex-col justify-between group cursor-pointer border-primary/20 relative overflow-hidden"
-              onClick={() => navigate(`/knowledge-bases/${workspaces[0].id}`)}
-            >
-              <div className="absolute top-0 right-0 p-8">
-                <Database className="w-24 h-24 text-primary/10 group-hover:text-primary/20 transition-all duration-500 rotate-12 group-hover:rotate-0" />
+            {workspaces && workspaces.length > 0 && (
+              <div
+                className="lg:col-span-2 rounded-3xl glass-panel p-8 min-h-[400px] flex flex-col justify-between group cursor-pointer border-primary/20 relative overflow-hidden"
+                onClick={() => navigate(`/knowledge-bases/${workspaces[0].id}`)}
+              >
+                <div className="absolute top-0 right-0 p-8">
+                  <Database className="w-24 h-24 text-primary/10 group-hover:text-primary/20 transition-all duration-500 rotate-12 group-hover:rotate-0" />
+                </div>
+                <div>
+                  <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-primary/20">
+                    Featured Collection
+                  </span>
+                  <h2 className="text-4xl font-display mt-6 group-hover:text-primary transition-colors">
+                    {workspaces[0].name}
+                  </h2>
+                  <p className="text-muted-foreground mt-4 max-w-md line-clamp-2">
+                    {workspaces[0].description ||
+                      "No description provided for this collection."}
+                  </p>
+                </div>
+                <div className="flex items-center gap-6 mt-8">
+                  <div className="text-center">
+                    <p className="text-2xl font-display text-primary">
+                      {workspaces[0].document_count}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-tighter">
+                      Documents
+                    </p>
+                  </div>
+                  <div className="w-px h-8 bg-white/10" />
+                  <div className="text-center">
+                    <p className="text-2xl font-display text-accent">
+                      {workspaces[0].indexed_count}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-tighter">
+                      Indexed Chunks
+                    </p>
+                  </div>
+                  <Button className="ml-auto btn-primary rounded-xl">
+                    Open Intelligence
+                  </Button>
+                </div>
               </div>
-              <div>
-                <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-primary/20">Featured Collection</span>
-                <h2 className="text-4xl font-display mt-6 group-hover:text-primary transition-colors">{workspaces[0].name}</h2>
-                <p className="text-muted-foreground mt-4 max-w-md line-clamp-2">{workspaces[0].description || "No description provided for this collection."}</p>
-              </div>
-              <div className="flex items-center gap-6 mt-8">
-                 <div className="text-center">
-                    <p className="text-2xl font-display text-primary">{workspaces[0].document_count}</p>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-tighter">Documents</p>
-                 </div>
-                 <div className="w-px h-8 bg-white/10" />
-                 <div className="text-center">
-                    <p className="text-2xl font-display text-accent">{workspaces[0].indexed_count}</p>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-tighter">Indexed Chunks</p>
-                 </div>
-                 <Button className="ml-auto btn-primary rounded-xl">Open Intelligence</Button>
-              </div>
-            </div>
-          )}
+            )}
 
-          {/* Create New / Secondary Column */}
-          <div className="flex flex-col gap-6">
-             <div 
-              className="flex-1 rounded-3xl glass-card p-6 flex flex-col items-center justify-center text-center group cursor-pointer border-dashed border-white/10"
-              onClick={() => setShowNewWorkspace(true)}
-             >
+            {/* Create New / Secondary Column */}
+            <div className="flex flex-col gap-6">
+              <div
+                className="flex-1 rounded-3xl glass-card p-6 flex flex-col items-center justify-center text-center group cursor-pointer border-dashed border-white/10"
+                onClick={() => setShowNewWorkspace(true)}
+              >
                 <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/10 transition-all duration-300">
                   <Plus className="w-8 h-8 text-primary" />
                 </div>
                 <h3 className="font-display text-lg mt-4">New Collection</h3>
-                <p className="text-xs text-muted-foreground mt-2">Initialize a new knowledge base</p>
-             </div>
-          </div>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Initialize a new knowledge base
+                </p>
+              </div>
+            </div>
 
-          {/* Remaining Collections in a tighter grid */}
-          <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-4">
-            {workspaces?.slice(1).map((ws: KnowledgeBase) => (
-              <div
-                key={ws.id}
-                className="group cursor-pointer rounded-2xl glass-card p-5 border-white/5 hover:border-primary/20"
-                onClick={() => navigate(`/knowledge-bases/${ws.id}`)}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
-                    <Database className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="font-semibold text-sm truncate">{ws.name}</h4>
-                    <p className="text-[10px] text-muted-foreground">{ws.document_count} files</p>
+            {/* Remaining Collections in a tighter grid */}
+            <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-4">
+              {workspaces?.slice(1).map((ws: KnowledgeBase) => (
+                <div
+                  key={ws.id}
+                  className="group cursor-pointer rounded-2xl glass-card p-5 border-white/5 hover:border-primary/20"
+                  onClick={() => navigate(`/knowledge-bases/${ws.id}`)}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
+                      <Database className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="font-semibold text-sm truncate">
+                        {ws.name}
+                      </h4>
+                      <p className="text-[10px] text-muted-foreground">
+                        {ws.document_count} files
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
         )}
       </div>
 
